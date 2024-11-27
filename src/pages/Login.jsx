@@ -84,7 +84,7 @@ function Login(props) {
         Sign In With Apple
       </button>
       <p className="footer">
-        New to Slack? <a href="/register">Create an account</a>
+        New to Slack? <a href="/createaccount">Create an account</a>
       </p>
     </div>
   );

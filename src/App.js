@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import CreateAccount from "./pages/CreateAccount";
+
 // import DataProvider from "./context/DataProvider";
 
 function App() {
@@ -35,6 +37,7 @@ function App() {
               )
             }
           />
+           <Route path="/createaccount" element={<CreateAccount/>} />
           {/* Navigate - forces the browser to attach this path to the URL */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
