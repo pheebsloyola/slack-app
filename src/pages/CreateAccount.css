@@ -1,0 +1,109 @@
+
+  
+  /* Main container */
+  .create-account-container {
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+    margin: 20px;
+  }
+  
+  /* Logo */
+  .logo {
+    margin-bottom: 20px;
+    margin-right: 120px;
+    width: 50px;
+  }
+  
+  /* Heading and subheading */
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  p {
+    color: #6f6f6f;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  
+  /* Input fields */
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d3d3d3;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  /* Buttons */
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4a154b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #3e123f;
+  }
+  
+  /* Footer text */
+  .footer-text {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+  
+  .footer-text .link {
+    color: #1264a3;
+    text-decoration: none;
+  }
+  
+  .footer-text .link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Media query for smaller screens */
+  @media screen and (max-width: 600px) {
+    .create-account-container {
+      padding: 15px;
+      max-width: 90%;
+    }
+  
+    h1 {
+      font-size: 20px;
+    }
+  
+    p {
+      font-size: 13px;
+    }
+  
+    input {
+      font-size: 13px;
+      padding: 8px;
+    }
+  
+    button {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .footer-text {
+      font-size: 11px;
+    }
+  }
+  
