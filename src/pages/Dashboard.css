@@ -1,0 +1,39 @@
+
+  /* Media query for smaller screens */
+  @media screen and (max-width: 600px) {
+    body {
+      padding: 10px;
+    }
+  
+    .login-container {
+      padding: 15px;
+      max-width: 90%;
+      margin: 10px;
+    }
+  
+    h1 {
+      font-size: 20px;
+    }
+  
+    p {
+      font-size: 13px;
+    }
+  
+    input {
+      font-size: 13px;
+      padding: 8px;
+    }
+  
+    button {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+  
+    .divider span {
+      font-size: 11px;
+    }
+  
+    .footer {
+      font-size: 11px;
+    }
+  } 

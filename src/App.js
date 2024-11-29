@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import CreateAccount from "./pages/CreateAccount";
+import DataProvider from "./context/DataProvider";
+import Message from "./pages/Message";
 
 // import DataProvider from "./context/DataProvider";
 
@@ -18,7 +20,7 @@ function App() {
   };
 
   return (
-    // <DataProvider>
+    <DataProvider>
       <BrowserRouter>
         <Routes>
           {/* Upon first loading of the app, this will be loaded first */}
@@ -37,12 +39,23 @@ function App() {
               )
             }
           />
+           <Route
+            path="/message"
+            element={
+              isAuthenticated ? (
+                <Message />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
            <Route path="/createaccount" element={<CreateAccount/>} />
+           
           {/* Navigate - forces the browser to attach this path to the URL */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
-    // </DataProvider>
+     </DataProvider>
   );
 }
 

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../constants/Constants";
 import { useNavigate } from "react-router-dom";
-// import { useData } from "../context/DataProvider";
+import { useData } from "../context/DataProvider";
 import "./Login.css"; 
 
 function Login(props) {
   const { onLogin } = props;
-  // const { handleHeaders } = useData();
+  const { handleHeaders } = useData();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -32,7 +32,8 @@ function Login(props) {
         console.log(data);
         console.log(accessToken, expiry, client, uid);
 
-        // handleHeaders(headers);
+         // keep the headers as values in our context - these can now be used "globally"
+        handleHeaders(headers);
 
         onLogin();
         navigate('/dashboard');
