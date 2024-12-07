@@ -5,8 +5,9 @@ import Dashboard from "./pages/Dashboard";
 import CreateAccount from "./pages/CreateAccount";
 import DataProvider from "./context/DataProvider";
 import Message from "./pages/Message";
+// import MainContent from "./pages/MainContent";
+// import Sidebar from "./pages/Sidebar";
 
-// import DataProvider from "./context/DataProvider";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -39,6 +40,7 @@ function App() {
               )
             }
           />
+
            <Route
             path="/message"
             element={

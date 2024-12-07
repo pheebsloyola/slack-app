@@ -1,0 +1,69 @@
+/* Global Variables */
+:root {
+    --primary-purple: #4a154b;
+    --secondary-purple: #3e0f42;
+    --accent-pink: #e01e5a;
+    --hover-pink: #c11c4f;
+    --light-bg: #f8f9fa;
+    --message-bg: #ffffff;
+    --border-gray: #ddd;
+    --text-gray: #6b6b6b;
+    --text-dark: #333;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+  }
+  
+  /* App Layout */
+  .app {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 280px;
+    background-color: var(--primary-purple);
+    color: white;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 20px;
+    border-bottom: 1px solid var(--secondary-purple);
+  }
+  
+  .sidebar-channels {
+    padding: 20px 0;
+  }
+  
+  .sidebar-channels h4 {
+    padding: 0 20px;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--text-gray);
+  }
+  
+  .sidebar-channels ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar-channels ul li {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sidebar-channels ul li:hover {
+    background-color: var(--secondary-purple);
+  }
