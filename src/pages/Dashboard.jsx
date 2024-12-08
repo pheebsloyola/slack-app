@@ -5,6 +5,7 @@ import { API_URL } from "../constants/Constants";
 import { useLocation } from "react-router-dom";
 import "./Dashboard.css";
 import DirectMessage from "./DirectMessage";
+import Channel from "./Channel";
 
 function Dashboard(props) {
   // const { onLogout } = props;
@@ -15,7 +16,9 @@ function Dashboard(props) {
   const [messages,setMessages] = useState([]);
   const { user } = location.state || {};
   const [selectedDM,setSelectedDM] = useState(null);
-  const [showDM,setShowDM] = useState(false);
+  const [showHideChannel,setShowHideChannel] = useState(false);
+  const [showHide,setShowHide] = useState(false);
+  const [channels,setChannels] = useState([]);
 
   const getUsers = async () => {
     try {
@@ -34,6 +37,32 @@ function Dashboard(props) {
       getUsers();
     }
   });
+
+  useEffect(() => {
+    const storedChannels = localStorage.getItem("channels");
+    if (storedChannels.length === 0) {
+      console.log(storedChannels.length);
+      setChannels(JSON.parse(storedChannels));
+    } else {
+      // Optional: Initialize default channels if needed
+      const defaultChannels = ["General", "Random"];
+      setChannels(defaultChannels);
+      localStorage.setItem("channels", JSON.stringify(defaultChannels));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("channels", JSON.stringify(channels));
+  }, [channels]);
+
+  const addChannel = (channelName) => {
+    if (channelName && !channels.includes(channelName)) {
+      setChannels([...channels, channelName]);
+    } else {
+      alert("Channel name is empty or already exists!");
+    }
+  };
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       handleSendMessage();
@@ -60,44 +89,40 @@ function Dashboard(props) {
   const handleSelectDM = (item) => {
     const receiverName = item.split('@')[0];
     setSelectedDM(receiverName);
-    setShowDM(true);
+    setShowHide(true);
   };
+
+  const handleNewChannel = () => {
+    setShowHideChannel(true);
+  };
+
+  const handleChannelCancel = (value) => {
+    setShowHideChannel(value);
+  };
+
+ 
   
 
   return (
-    // <div style={{ textAlign: "center" }}>
-    //   <h2>Dashboard</h2>
-    //   <p>This is my slack app. Loading of users here...</p>
-    //   <button onClick={sendMessage}>Message</button>
-    //   <button onClick={onLogout}>Logout</button>
-    //   {/* {
-    //     userList &&
-    //     userList.map((individual) => {
-    //         const { id, email } = individual;
-    //         return (
-    //           <div key={id}>
-    //               <p>ID: {id}</p>
-    //               <p>Email: {email}</p>
-    //           </div>
-    //         )
-    //     })
-    //   }
-    //   { !userList && <div>No users available</div> } */}
-
-      
-    // </div>
-
     <div className="dashboard-container">
-    {/* Sidebar */}
     <div className="sidebar">
       <h1>Avion School</h1>
       <div className="channels">
-        <h3>Channels</h3>
+         <div className="channel-list">
+         <h1>Channels</h1>
         <ul>
-          <li>#general</li>
-          <li>#random</li>
-          <li>#batch37</li>
+          {channels.map((channel, index) => (
+            <li 
+              key={index}
+              onClick={() => setShowHide(false)}
+            >
+              #{channel}
+            </li>
+          ))}
         </ul>
+        </div>
+      <button onClick={handleNewChannel}>New Channel</button>
+      {showHideChannel && <Channel cancelClick={handleChannelCancel} name="Add New Channel" onAddChannel={addChannel} />}
       </div>
       <div className="direct-messages">
         <h3>Direct Messages</h3>
@@ -114,15 +139,15 @@ function Dashboard(props) {
       </div>
     </div>
 
-    {showDM && <DirectMessage sender={user} receiver={selectedDM}/> }
-    {!showDM && <div className="main-content">
+    {showHide && <DirectMessage sender={user} receiver={selectedDM}/> }
+    {!showHide && <div className="main-content">
       <div className="header">
-        <h2>#general</h2>
+        <h2>#General</h2>
         <button className="add-members">+ Add Members</button>
       </div>
       <div className="chat-window">
         <div className="chat-bubble">
-          <strong>Phoebe:</strong> Welcome to #general!
+          <strong>Phoebe:</strong> Welcome to #General!
         </div>
         {messages.map((msg, index) => (
           <div className="chat-bubble self" key={index}>
@@ -141,9 +166,8 @@ function Dashboard(props) {
         />
         <button onClick={handleSendMessage}>Send</button>
       </div>
-    </div>}
-    {/* Main Content Area */}
-    
+     </div>
+    }
   </div>
       
 );

@@ -1,0 +1,16 @@
+.newChannelNameInput{
+    margin-top: -0.25rem !important;
+    width: 290px;
+  }
+  .channelNameButton .channelCancelBtn{
+    margin-top: 0.75rem !important;
+    margin-left: 1.50rem !important;
+  }
+  .channelFooter{
+    margin-top: 0.75rem !important;
+    flex-direction:'row';
+    justify-content : 'space-between';
+    margin-right: 5;
+    width:'40%';
+    align-self:'flex-end';
+  }

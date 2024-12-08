@@ -56,6 +56,7 @@ function Login(props) {
         <div className="input-group">
           <label>Email</label>
           <input
+            className="inputEmail"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -66,6 +67,7 @@ function Login(props) {
         <div className="input-group">
           <label>Password</label>
           <input
+            className="inputPass"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

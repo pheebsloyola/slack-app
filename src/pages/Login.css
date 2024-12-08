@@ -76,6 +76,14 @@ body {
     margin-bottom: 10px; */
   }
   
+  .inputEmail {
+    width: 94%;
+  }
+  .inputPass{
+    width: 94%;
+  }
+
+
   /* Buttons */
   button {
     display: flex;

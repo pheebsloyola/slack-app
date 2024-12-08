@@ -4,9 +4,10 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
+  height: 96%;
+  width: 1490px;
 }
 .chat-window {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px 0;
+  flex: 1;
+  padding: 10px 0;
   }

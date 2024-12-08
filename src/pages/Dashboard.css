@@ -53,12 +53,15 @@ body {
 
 /* Sidebar */
 .sidebar {
-  width: 300px;
+  /* width: 300px; */
+  height: 100%;
   background-color: #4b2c60;
   color: white;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
+  width: 333px;
 }
 
 .sidebar h1 {
@@ -86,6 +89,9 @@ body {
 .sidebar li:hover {
   background-color: #6e4d87;
 }
+.add-members{
+  width: 160px;
+}
 
 /* Main Content */
 .main-content {
@@ -94,6 +100,8 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  height: 96%;
+  width: 1490px;
 }
 
 .header {
@@ -123,7 +131,6 @@ body {
 /* Chat Window */
 .chat-window {
   flex: 1;
-  overflow-y: auto;
   padding: 10px 0;
 }
 
