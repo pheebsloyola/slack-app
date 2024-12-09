@@ -51,6 +51,17 @@ body {
   height: 100vh;
 }
 
+
+.dashBoardHeader{
+  display: flex;
+}
+
+.logOutBtn{
+  width: 80px;
+  height: 30px;
+  margin-top: 19px;
+  margin-left: 50px;
+}
 /* Sidebar */
 .sidebar {
   /* width: 300px; */

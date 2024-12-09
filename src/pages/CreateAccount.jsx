@@ -54,6 +54,7 @@ function CreateAccount() {
   <form onSubmit={handleSubmit}>
     <div className="input-group">
       <input
+        className="createEmail"
         type="text"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -63,6 +64,7 @@ function CreateAccount() {
     </div>
     <div className="input-group">
       <input
+        className="createPassword"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -72,6 +74,7 @@ function CreateAccount() {
     </div>
     <div className="input-group">
       <input
+        className="createConfirmPassword"
         type="password"
         value={passwordConfirmation}
         onChange={(e) => setPasswordConfirmation(e.target.value)}

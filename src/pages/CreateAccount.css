@@ -44,7 +44,18 @@
     border-radius: 6px;
     font-size: 14px;
   }
+  .createEmail {
+    width: 94%;
+  }
+
+  .createPassword {
+    width: 94%;
+  }
   
+  .createConfirmPassword {
+    width: 94%;
+  }
+
   /* Buttons */
   button {
     width: 100%;

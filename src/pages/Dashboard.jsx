@@ -6,6 +6,9 @@ import { useLocation } from "react-router-dom";
 import "./Dashboard.css";
 import DirectMessage from "./DirectMessage";
 import Channel from "./Channel";
+import { useNavigate } from "react-router-dom";
+
+//import Member from "./Member";
 
 function Dashboard(props) {
   // const { onLogout } = props;
@@ -19,6 +22,10 @@ function Dashboard(props) {
   const [showHideChannel,setShowHideChannel] = useState(false);
   const [showHide,setShowHide] = useState(false);
   const [channels,setChannels] = useState([]);
+  const navigate = useNavigate();
+  // const { handleHeaders } = useData();
+  //const [showMember,setShowMember] = useState(false);
+
 
   const getUsers = async () => {
     try {
@@ -31,6 +38,8 @@ function Dashboard(props) {
       }
     }
   }
+
+ 
 
   useEffect(() => {
     if(userList.length === 0){
@@ -100,13 +109,20 @@ function Dashboard(props) {
     setShowHideChannel(value);
   };
 
+  const handleLogOut = ()=>{
+    navigate('/login');
+  };
+//  const openMemberWindow = () => {
+//   setShowMember(true);
+//  };
  
-  
-
   return (
     <div className="dashboard-container">
     <div className="sidebar">
-      <h1>Avion School</h1>
+      <div className="dashBoardHeader">
+        <h1>Avion School</h1>
+        <button className="logOutBtn" onClick={handleLogOut}>Log out</button>
+      </div>
       <div className="channels">
          <div className="channel-list">
          <h1>Channels</h1>
@@ -144,6 +160,7 @@ function Dashboard(props) {
       <div className="header">
         <h2>#General</h2>
         <button className="add-members">+ Add Members</button>
+        {/* {showMember && <Member/>} */}
       </div>
       <div className="chat-window">
         <div className="chat-bubble">
