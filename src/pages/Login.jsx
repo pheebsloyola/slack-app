@@ -36,7 +36,7 @@ function Login(props) {
         handleHeaders(headers);
 
         onLogin();
-        navigate('/dashboard', { state: { user: email.split('@')[0] } });
+        navigate('/dashboard', { state: { user: email.split('@')[0], tokenAccess: accessToken } });
       }
     } catch(error) {
       if(error.response.data.errors) {

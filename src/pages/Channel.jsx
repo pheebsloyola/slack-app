@@ -11,6 +11,9 @@ function Channel({ cancelClick, onAddChannel }) {
   const { userHeaders } = useData();
   const [userList, setUserList] = useState([]);
 
+
+
+
   const getUsers = async () => {
     try {
       const response = await axios.get(`${API_URL}/users`, { headers: userHeaders });
@@ -31,27 +34,29 @@ function Channel({ cancelClick, onAddChannel }) {
     }
   });
 
-  const handleSubmit = async () => {
-    // e.preventDefault();
-    // Add authentication here
-    try {
-        const channelDetails = {
-            name,
-            user_ids,
-          };
 
-      const response = await axios.get(`${API_URL}/channels`,channelDetails);
-      const { data, headers } = response;
-      if(data && headers) {
 
-        alert('Channel Created.')
+  const handleSubmit = async(e) =>{
+   
+    e.preventDefault();
+      const channelDetails = {
+        name,
+        user_ids
       }
-    } catch(error) {
-      if(error.response.data.errors) {
-        return alert("Channel already exists.");
+
+      try {
+        const response = await axios.post(`${API_URL}/channels`, channelDetails, { headers: userHeaders });
+        console.log(response.data);
+      } catch (error) {
+        if (error.response) {
+          console.error("Error Response:", error.response.data); // Server error response
+        } else if (error.request) {
+          console.error("Error Request:", error.request); // No response received
+        } else {
+          console.error("Error Message:", error.message); // Something else
+        }
       }
-    }
-  };
+  }
 
   const handleKeyDown = (event) => {
     if(event.key === "Enter") {
@@ -63,7 +68,7 @@ function Channel({ cancelClick, onAddChannel }) {
 
   const handleChange = (e) => {
     // Get all selected options as an array of values
-    const selectedValues = Array.from(e.target.selectedOptions, option => option.value);
+    const selectedValues = Array.from(e.target.selectedOptions, option => parseInt(option.value));
     setUserIds(selectedValues);
   };
 
@@ -82,8 +87,8 @@ function Channel({ cancelClick, onAddChannel }) {
         onChange={(e) => setName(e.target.value)}
         placeholder="New channel name"
       />
-       <select multiple value={user_ids} onChange={handleChange}>
-       <option value="">-- Select users --</option>
+       <select className="userChannelList" multiple value={user_ids} onChange={handleChange}>
+       <option value="">Select channel members</option>
         {/* Map over options array to create <option> elements */}
         {userList.map((user) => (
           <option key={user.id} value={user.id}>
@@ -91,7 +96,6 @@ function Channel({ cancelClick, onAddChannel }) {
           </option>
         ))}
        </select>
-       <div>Members : {user_ids.join(', ')}</div>
       <div className="channelFooter">
         <button className="channelNameButton">Add Channel</button>
       </div>

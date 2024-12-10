@@ -19,6 +19,7 @@ function Dashboard(props) {
   const [messages,setMessages] = useState([]);
   const { user } = location.state || {};
   const [selectedDM,setSelectedDM] = useState(null);
+  const [selectedDMID,setSelectedDMID] = useState(null);
   const [showHideChannel,setShowHideChannel] = useState(false);
   const [showHide,setShowHide] = useState(false);
   const [channels,setChannels] = useState([]);
@@ -39,8 +40,18 @@ function Dashboard(props) {
     }
   }
 
+  const getAllChannels = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/channels`, { headers: userHeaders });
+      const channelList = response.data.data;
+      setChannels(channelList);
+    } catch (error) {
+      if(error.response.data.errors) {
+        return alert("Cannot get channels");
+      }
+    }
+  }
  
-
   useEffect(() => {
     if(userList.length === 0){
       getUsers();
@@ -48,21 +59,9 @@ function Dashboard(props) {
   });
 
   useEffect(() => {
-    const storedChannels = localStorage.getItem("channels");
-    if (storedChannels.length === 0) {
-      console.log(storedChannels.length);
-      setChannels(JSON.parse(storedChannels));
-    } else {
-      // Optional: Initialize default channels if needed
-      const defaultChannels = ["General", "Random"];
-      setChannels(defaultChannels);
-      localStorage.setItem("channels", JSON.stringify(defaultChannels));
-    }
-  }, []);
+      getAllChannels();
+  });
 
-  useEffect(() => {
-    localStorage.setItem("channels", JSON.stringify(channels));
-  }, [channels]);
 
   const addChannel = (channelName) => {
     if (channelName && !channels.includes(channelName)) {
@@ -88,16 +87,11 @@ function Dashboard(props) {
       setMessage('');  // Clear the input field after sending
     }
   };
-
-  // const sendMessage = () => {
-  //   navigate('/message', {
-  //     state: {userList} // Passing the users object as state
-  //   });
-  // };
   
-  const handleSelectDM = (item) => {
-    const receiverName = item.split('@')[0];
+  const handleSelectDM = (email,id) => {
+    const receiverName = email.split('@')[0];
     setSelectedDM(receiverName);
+    setSelectedDMID(id);
     setShowHide(true);
   };
 
@@ -127,12 +121,12 @@ function Dashboard(props) {
          <div className="channel-list">
          <h1>Channels</h1>
         <ul>
-          {channels.map((channel, index) => (
+          {channels.map((channel) => (
             <li 
-              key={index}
+              key={channel.id}
               onClick={() => setShowHide(false)}
             >
-              #{channel}
+              #{channel.name}
             </li>
           ))}
         </ul>
@@ -146,7 +140,7 @@ function Dashboard(props) {
           {userList.map((user) => (
             <li 
               key={user.id}
-              onClick={() => handleSelectDM(user.email)}
+              onClick={() => handleSelectDM(user.email,user.id)}
             >
               {user.email}
             </li>
@@ -155,7 +149,7 @@ function Dashboard(props) {
       </div>
     </div>
 
-    {showHide && <DirectMessage sender={user} receiver={selectedDM}/> }
+    {showHide && <DirectMessage sender={user} receiver={selectedDM} receiverid={selectedDMID}/> }
     {!showHide && <div className="main-content">
       <div className="header">
         <h2>#General</h2>
