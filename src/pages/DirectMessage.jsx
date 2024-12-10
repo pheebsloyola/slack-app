@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./DirectMessage.css";
 import axios from "axios";
 import { API_URL } from "../constants/Constants";
@@ -15,6 +15,27 @@ function DirectMessage(props){
     })
     const { userHeaders } = useData();
 
+  
+    useEffect(() => {
+      // Fetching data from API using axios (you can use fetch too)
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`${API_URL}/messages?receiver_id=${props.receiverid}&receiver_class=User`, { headers: userHeaders });
+          response.data.data.mpa((message)=>{
+            setMessages([...messages,message.body]);
+          }) // Set the response data in state
+        } catch (err) {
+          console.log(err);
+        }
+      };
+  
+      if (props.receiverid && userHeaders) {
+        fetchData(); // Only fetch if receiverid and userHeaders are available
+      }
+    }, [messages,props.receiverid,userHeaders]);
+
+
+    
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -45,20 +66,7 @@ function DirectMessage(props){
         try {
           const response = await axios.post(`${API_URL}/messages`, messageDetails, { headers: userHeaders });
           console.log(response.data);
-          if (message.trim()) {
-
-            const response = await axios.get(`${API_URL}/messages?receiver_id=${props.receiverid}&receiver_class=User`, { headers: userHeaders });
-            console.log(response.data);
-            const listofMessages = response.data.data;
-
-            listofMessages.map((msg) => {
-              return setMessages([...messages, msg.body ])
-            });
-            
-           // Add the new message to the messages array (...messages) => 
-  
-            setMessage('');  // Clear the input field after sending
-      }
+         
         } catch (error) {
           if (error.response) {
             console.error("Error Response:", error.response.data); // Server error response
@@ -77,7 +85,7 @@ function DirectMessage(props){
          </div>
         <div className="chat-window">
         {messages.map((msg, index) => (
-          <div className="chat-bubble self" key={index}>
+          msg && <div className="chat-bubble self" key={index}>
            <strong>{props.sender}: </strong>{msg}
           </div>
         ))}
